@@ -13,9 +13,9 @@ import static java.util.stream.Stream.concat;
 
 public class Differ {
 
-    private final static String DELIMITER = "\n\t";
-    private final static String PREFIX = "{\n\t";
-    private final static String SUFFIX = "\n}";
+    private static final String DELIMITER = "\n\t";
+    private static final String PREFIX = "{\n\t";
+    private static final String SUFFIX = "\n}";
 
     public static String generate(final File filepath1, final File filepath2) throws IOException {
         return getChanges(filepath1, filepath2).flatMap(Differ::getStringStream)

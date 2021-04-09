@@ -11,7 +11,7 @@ import static picocli.CommandLine.Option;
 import static picocli.CommandLine.Parameters;
 
 @Command(name = "gendiff", description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<String> {
+public final class App implements Callable<String> {
 
     private static final String DEFAULT_FORMAT = "stylish";
 

@@ -17,10 +17,10 @@ class JsonChanges {
 
     private final String prefixForNow;
 
-    public JsonChanges(String recordName, Object recordWas, Object recordNow) {
-        this.recordName = recordName;
-        this.recordWas = recordWas;
-        this.recordNow = recordNow;
+    JsonChanges(final String recordNameIncome, final Object recordWasIncome, final Object recordNowIncome) {
+        this.recordName = recordNameIncome;
+        this.recordWas = recordWasIncome;
+        this.recordNow = recordNowIncome;
         this.prefixForWas = changed() || deleted() ? DELETED_CHANGED_PREFIX : !added() ? NO_CHANGES_PREFIX : null;
         this.prefixForNow = changed() || added() ? ADDED_CHANGED_PREFIX : null;
     }
