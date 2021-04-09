@@ -3,3 +3,5 @@
 
 ### Usage: 
 [![asciicast](https://asciinema.org/a/Pe6QypnLEmFWssNAjCOJN1iii.svg)](https://asciinema.org/a/Pe6QypnLEmFWssNAjCOJN1iii)
+
+![Java CI](https://github.com/zxvfc/java-project-lvl2/workflows/Java%20CI/badge.svg)
