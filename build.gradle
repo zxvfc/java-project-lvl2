@@ -9,6 +9,7 @@ plugins {
   id 'application'
   id 'checkstyle'
   id 'com.github.ben-manes.versions' version '0.38.0'
+  id 'jacoco'
 }
 
 group = 'hexlet.code'
@@ -29,6 +30,7 @@ dependencies {
 
 test {
   useJUnitPlatform()
+  finalizedBy jacocoTestReport
 }
 
 compileJava {
@@ -37,6 +39,10 @@ compileJava {
 
 application {
   mainClass = 'hexlet.code.App'
+}
+
+jacocoTestReport {
+  dependsOn test
 }
 
 checkstyle {
