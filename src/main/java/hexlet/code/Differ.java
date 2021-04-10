@@ -1,9 +1,7 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -17,24 +15,25 @@ public class Differ {
     private static final String PREFIX = "{\n\t";
     private static final String SUFFIX = "\n}";
 
-    public static String generate(final File filepath1, final File filepath2) throws IOException {
-        return getChanges(filepath1, filepath2).flatMap(Differ::getStringStream)
-                    .filter(Objects::nonNull)
-                    .collect(joining(DELIMITER, PREFIX, SUFFIX));
+    public static String generate(final File file1, final File file2) throws IOException {
+        return getDiff(file1, file2)
+                     .flatMap(Differ::unwrapChanges)
+                     .filter(Objects::nonNull)
+                     .collect(joining(DELIMITER, PREFIX, SUFFIX));
     }
 
-    private static Stream<String> getStringStream(JsonChanges it) {
-        return Stream.of(it.toStringWas(), it.toStringNow());
-    }
-
-    private static Stream<JsonChanges> getChanges(final File filepath1, final File filepath2) throws IOException {
-        final var mapper = new ObjectMapper();
-        final Map<String, Object> firstFileContent = mapper.readValue(filepath1, Map.class);
-        final Map<String, Object> secondFileContent = mapper.readValue(filepath2, Map.class);
+    private static Stream<Changes> getDiff(final File file1, final File file2) throws IOException {
+        final var parser = new Parser();
+        final var firstFileContent = parser.parse(file1);
+        final var secondFileContent = parser.parse(file2);
 
         return concat(firstFileContent.keySet().stream(), secondFileContent.keySet().stream())
                 .distinct()
-                .map(it -> new JsonChanges(it, firstFileContent.get(it), secondFileContent.get(it)))
-                .sorted(comparing(JsonChanges::getRecordName));
+                .map(recordName -> new Changes(recordName, firstFileContent.get(recordName), secondFileContent.get(recordName)))
+                .sorted(comparing(Changes::getRecordName));
+    }
+
+    private static Stream<String> unwrapChanges(final Changes changes) {
+        return Stream.of(changes.toStringWas(), changes.toStringNow());
     }
 }

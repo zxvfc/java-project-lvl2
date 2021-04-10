@@ -1,6 +1,6 @@
 package hexlet.code;
 
-class JsonChanges {
+public final class Changes {
 
     private static final String ADDED_CHANGED_PREFIX = "+ ";
     private static final String DELETED_CHANGED_PREFIX = "- ";
@@ -17,7 +17,7 @@ class JsonChanges {
 
     private final String prefixForNow;
 
-    JsonChanges(final String recordNameIncome, final Object recordWasIncome, final Object recordNowIncome) {
+    public Changes(final String recordNameIncome, final Object recordWasIncome, final Object recordNowIncome) {
         this.recordName = recordNameIncome;
         this.recordWas = recordWasIncome;
         this.recordNow = recordNowIncome;
