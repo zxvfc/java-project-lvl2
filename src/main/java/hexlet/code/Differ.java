@@ -29,8 +29,10 @@ public class Differ {
 
         return concat(firstFileContent.keySet().stream(), secondFileContent.keySet().stream())
                 .distinct()
-                .map(recordName -> new Changes(recordName, firstFileContent.get(recordName), secondFileContent.get(recordName)))
-                .sorted(comparing(Changes::getRecordName));
+                .map(recordName -> new Changes(recordName,
+                                               firstFileContent.get(recordName),
+                                               secondFileContent.get(recordName))
+                ).sorted(comparing(Changes::getRecordName));
     }
 
     private static Stream<String> unwrapChanges(final Changes changes) {

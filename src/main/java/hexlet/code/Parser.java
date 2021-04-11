@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class Parser {
+public final class Parser {
 
     private static final String JSON = ".json";
     private static final String YML = ".yml";
