@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -15,7 +16,7 @@ public final class Parser {
 
     public Map<String, Object> parse(final File file) throws IOException {
         final var extension = getExtensionOf(file);
-        return getMapperFor(extension).readValue(file, Map.class);
+        return getMapperFor(extension).readValue(file, new TypeReference<>() { });
     }
 
     private static String getExtensionOf(final File file) {
