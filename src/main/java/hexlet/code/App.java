@@ -46,6 +46,6 @@ public final class App implements Callable<String> {
 
     @Override
     public String call() throws IOException {
-        return Differ.generate(filepath1, filepath2);
+        return Differ.generate(filepath1, filepath2, format);
     }
 }

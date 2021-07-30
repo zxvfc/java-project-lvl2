@@ -1,11 +1,8 @@
 package hexlet.code;
 
-public final class Changes {
+import java.util.Objects;
 
-    private static final String ADDED_CHANGED_PREFIX = "+ ";
-    private static final String DELETED_CHANGED_PREFIX = "- ";
-    private static final String NO_CHANGES_PREFIX = "  ";
-    private static final String NAME_VALUE_DELIMITER = ": ";
+public final class Changes {
 
     private final String recordName;
 
@@ -13,51 +10,33 @@ public final class Changes {
 
     private final Object recordNow;
 
-    private final String prefixForWas;
-
-    private final String prefixForNow;
-
     public Changes(final String recordNameIncome, final Object recordWasIncome, final Object recordNowIncome) {
         this.recordName = recordNameIncome;
         this.recordWas = recordWasIncome;
         this.recordNow = recordNowIncome;
-        this.prefixForWas = changed() || deleted() ? DELETED_CHANGED_PREFIX : !added() ? NO_CHANGES_PREFIX : null;
-        this.prefixForNow = changed() || added() ? ADDED_CHANGED_PREFIX : null;
     }
 
     public String getRecordName() {
         return recordName;
     }
 
-    public boolean changed() {
-        return !deleted() && !added() && !recordWas.equals(recordNow);
+    public boolean isUpdated() {
+        return !isRemoved() && !isAdded() && !Objects.equals(recordWas, recordNow);
     }
 
-    public boolean deleted() {
+    public boolean isRemoved() {
         return recordWas != null && recordNow == null;
     }
 
-    public boolean added() {
+    public boolean isAdded() {
         return recordWas == null && recordNow != null;
     }
 
-    private String buildWasWithoutPrefix() {
-        return recordName + NAME_VALUE_DELIMITER + recordWas;
+    public Object getRecordWas() {
+        return recordWas;
     }
 
-    private String buildNowWithoutPrefix() {
-        return recordName + NAME_VALUE_DELIMITER + recordNow;
-    }
-
-    public String toStringWas() {
-        return changed() || deleted() || !added()
-                ? prefixForWas + buildWasWithoutPrefix()
-                : null;
-    }
-
-    public String toStringNow() {
-        return changed() || added()
-                ? prefixForNow + buildNowWithoutPrefix()
-                : null;
+    public Object getRecordNow() {
+        return recordNow;
     }
 }
