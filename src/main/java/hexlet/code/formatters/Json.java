@@ -6,9 +6,12 @@ import hexlet.code.Record;
 import java.util.StringJoiner;
 import java.util.stream.Collector;
 
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
+import static com.fasterxml.jackson.annotation.PropertyAccessor.IS_GETTER;
+
 public final class Json {
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper().setVisibility(IS_GETTER, NONE);
 
     public static final Collector<Record, StringJoiner, String> COLLECTOR = Collector.of(
             () -> new StringJoiner("\n"),

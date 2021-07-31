@@ -1,15 +1,15 @@
-{"name":"chars1","valueWas":["a","b","c"],"valueNow":["a","b","c"],"removed":false,"added":false,"updated":false}
-{"name":"chars2","valueWas":false,"valueNow":["d","e","f"],"removed":false,"added":false,"updated":true}
-{"name":"checked","valueWas":true,"valueNow":false,"removed":false,"added":false,"updated":true}
-{"name":"default","valueWas":["value1","value2"],"valueNow":null,"removed":true,"added":false,"updated":false}
-{"name":"id","valueWas":null,"valueNow":45,"removed":false,"added":true,"updated":false}
-{"name":"key1","valueWas":null,"valueNow":"value1","removed":false,"added":true,"updated":false}
-{"name":"key2","valueWas":"value2","valueNow":null,"removed":true,"added":false,"updated":false}
-{"name":"numbers1","valueWas":[1,2,3,4],"valueNow":[1,2,3,4],"removed":false,"added":false,"updated":false}
-{"name":"numbers2","valueWas":[22,33,44,55],"valueNow":[2,3,4,5],"removed":false,"added":false,"updated":true}
-{"name":"numbers3","valueWas":null,"valueNow":[3,4,5],"removed":false,"added":true,"updated":false}
-{"name":"numbers4","valueWas":[4,5,6],"valueNow":null,"removed":true,"added":false,"updated":false}
-{"name":"obj1","valueWas":{"nestedKey":"value","isNested":true},"valueNow":null,"removed":true,"added":false,"updated":false}
-{"name":"setting1","valueWas":"Another value","valueNow":"Some value","removed":false,"added":false,"updated":true}
-{"name":"setting2","valueWas":300,"valueNow":200,"removed":false,"added":false,"updated":true}
-{"name":"setting3","valueWas":"none","valueNow":true,"removed":false,"added":false,"updated":true}
+{"name":"chars1","valueWas":["a","b","c"],"valueNow":["a","b","c"]}
+{"name":"chars2","valueWas":false,"valueNow":["d","e","f"]}
+{"name":"checked","valueWas":true,"valueNow":false}
+{"name":"default","valueWas":["value1","value2"],"valueNow":null}
+{"name":"id","valueWas":null,"valueNow":45}
+{"name":"key1","valueWas":null,"valueNow":"value1"}
+{"name":"key2","valueWas":"value2","valueNow":null}
+{"name":"numbers1","valueWas":[1,2,3,4],"valueNow":[1,2,3,4]}
+{"name":"numbers2","valueWas":[22,33,44,55],"valueNow":[2,3,4,5]}
+{"name":"numbers3","valueWas":null,"valueNow":[3,4,5]}
+{"name":"numbers4","valueWas":[4,5,6],"valueNow":null}
+{"name":"obj1","valueWas":{"nestedKey":"value","isNested":true},"valueNow":null}
+{"name":"setting1","valueWas":"Another value","valueNow":"Some value"}
+{"name":"setting2","valueWas":300,"valueNow":200}
+{"name":"setting3","valueWas":"none","valueNow":true}

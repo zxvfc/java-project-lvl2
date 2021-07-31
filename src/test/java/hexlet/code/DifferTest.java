@@ -28,6 +28,7 @@ public class DifferTest {
 
         final String expected = getExpectedFor(formatName, testName);
         final String result = Differ.generate(file1.getPath(), file2.getPath(), formatName);
+        System.out.println(result);
         assertEquals(expected, result);
     }
 
