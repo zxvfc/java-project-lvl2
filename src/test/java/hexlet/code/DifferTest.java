@@ -1,164 +1,63 @@
 package hexlet.code;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import static hexlet.code.formatters.Format.JSON;
 import static hexlet.code.formatters.Format.PLAIN;
 import static hexlet.code.formatters.Format.STYLISH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DifferTest {
+public class DifferTest {
 
-    private static final String EXPECTED_STYLISH = """
-            {
-            \t- follow: false
-            \t  host: hexlet.io
-            \t- proxy: 123.234.53.22
-            \t- timeout: 50
-            \t+ timeout: 20
-            \t+ verbose: true
-            }""";
+    @MethodSource("data")
+    @ParameterizedTest(name = "{0} {1}")
+    public final void test(final String formatName,
+                     final String testName,
+                     final String fileName1,
+                     final String fileName2) throws IOException {
+        final File file1 = getFileByName(fileName1);
+        final File file2 = getFileByName(fileName2);
 
-    private static final String EXPECTED_STYLISH_OPPOSITE = """
-            {
-            \t+ follow: false
-            \t  host: hexlet.io
-            \t+ proxy: 123.234.53.22
-            \t- timeout: 20
-            \t+ timeout: 50
-            \t- verbose: true
-            }""";
+        final String expected = getExpectedFor(formatName, testName);
+        final String result = Differ.generate(file1, file2, formatName);
+        assertEquals(expected, result);
+    }
 
-    private static final String EXPECTED_STYLISH_NESTED = """
-            {
-            \t  chars1: [a, b, c]
-            \t- chars2: [d, e, f]
-            \t+ chars2: false
-            \t- checked: false
-            \t+ checked: true
-            \t+ default: [value1, value2]
-            \t- id: 45
-            \t- key1: value1
-            \t+ key2: value2
-            \t  numbers1: [1, 2, 3, 4]
-            \t- numbers2: [2, 3, 4, 5]
-            \t+ numbers2: [22, 33, 44, 55]
-            \t- numbers3: [3, 4, 5]
-            \t+ numbers4: [4, 5, 6]
-            \t+ obj1: {nestedKey=value, isNested=true}
-            \t- setting1: Some value
-            \t+ setting1: Another value
-            \t- setting2: 200
-            \t+ setting2: 300
-            \t- setting3: true
-            \t+ setting3: none
-            }""";
+    private String getExpectedFor(final String formatName, final String testName) throws FileNotFoundException {
+        final String path = ("expected/" + formatName + " " + testName).toLowerCase().replace(' ', '_');
+        return new BufferedReader(new FileReader(getFileByName(path)))
+                .lines()
+                .collect(Collectors.joining("\n"));
+    }
 
-    private static final String EXPECTED_STYLISH_NESTED_OPPOSITE = """
-            {
-            \t  chars1: [a, b, c]
-            \t- chars2: false
-            \t+ chars2: [d, e, f]
-            \t- checked: true
-            \t+ checked: false
-            \t- default: [value1, value2]
-            \t+ id: 45
-            \t+ key1: value1
-            \t- key2: value2
-            \t  numbers1: [1, 2, 3, 4]
-            \t- numbers2: [22, 33, 44, 55]
-            \t+ numbers2: [2, 3, 4, 5]
-            \t+ numbers3: [3, 4, 5]
-            \t- numbers4: [4, 5, 6]
-            \t- obj1: {nestedKey=value, isNested=true}
-            \t- setting1: Another value
-            \t+ setting1: Some value
-            \t- setting2: 300
-            \t+ setting2: 200
-            \t- setting3: none
-            \t+ setting3: true
-            }""";
-
-    private static final String EXPECTED_PLAIN = """
-            Property follow was removed
-            Property proxy was removed
-            Property timeout was updated. From 20 to 50
-            Property verbose was added with value: true""";
-
-    private static final String EXPECTED_PLAIN_OPPOSITE = """
-            Property follow was added with value: false
-            Property proxy was added with value: 123.234.53.22
-            Property timeout was updated. From 50 to 20
-            Property verbose was removed""";
-
-    private static final String EXPECTED_PLAIN_NESTED = """
-            Property chars2 was updated. From false to [d, e, f]
-            Property checked was updated. From true to false
-            Property default was added with value: [value1, value2]
-            Property id was removed
-            Property key1 was removed
-            Property key2 was added with value: value2
-            Property numbers2 was updated. From [22, 33, 44, 55] to [2, 3, 4, 5]
-            Property numbers3 was removed
-            Property numbers4 was added with value: [4, 5, 6]
-            Property obj1 was added with value: {nestedKey=value, isNested=true}
-            Property setting1 was updated. From Another value to Some value
-            Property setting2 was updated. From 300 to 200
-            Property setting3 was updated. From none to true""";
-
-    private static final String EXPECTED_PLAIN_NESTED_OPPOSITE = """
-            Property chars2 was updated. From [d, e, f] to false
-            Property checked was updated. From false to true
-            Property default was removed
-            Property id was added with value: 45
-            Property key1 was added with value: value1
-            Property key2 was removed
-            Property numbers2 was updated. From [2, 3, 4, 5] to [22, 33, 44, 55]
-            Property numbers3 was added with value: [3, 4, 5]
-            Property numbers4 was removed
-            Property obj1 was removed
-            Property setting1 was updated. From Some value to Another value
-            Property setting2 was updated. From 200 to 300
-            Property setting3 was updated. From true to none""";
-
-    private final File file1 = getFileWithName("file1.json");
-    private final File file2 = getFileWithName("file2.json");
-
-    private final File nestedFile1 = getFileWithName("file2.yml");
-    private final File nestedFile2 = getFileWithName("file3.yml");
-
-    private File getFileWithName(final String name) {
+    private File getFileByName(final String name) {
         return new File(getClass().getClassLoader().getResource(name).getFile());
     }
 
-    @Test
-    void generateStylish() throws IOException {
-        final String result = Differ.generate(file1, file2, STYLISH.name());
-        assertEquals(EXPECTED_STYLISH, result);
+    private static Stream<Object[]> data() {
+        return Stream.of(
+                new Object[] {STYLISH.name(), "Simple", "file1.json", "file2.json"},
+                new Object[] {STYLISH.name(), "Opposite", "file2.json", "file1.json"},
+                new Object[] {STYLISH.name(), "Nested", "file2.yml", "file3.yml"},
+                new Object[] {STYLISH.name(), "Nested Opposite", "file3.yml", "file2.yml"},
 
-        final String resultOpposite = Differ.generate(file2, file1, STYLISH.name());
-        assertEquals(EXPECTED_STYLISH_OPPOSITE, resultOpposite);
+                new Object[] {PLAIN.name(), "Simple", "file1.json", "file2.json"},
+                new Object[] {PLAIN.name(), "Opposite", "file2.json", "file1.json"},
+                new Object[] {PLAIN.name(), "Nested", "file2.yml", "file3.yml"},
+                new Object[] {PLAIN.name(), "Nested Opposite", "file3.yml", "file2.yml"},
 
-        final String resultNested = Differ.generate(nestedFile1, nestedFile2, STYLISH.name());
-        assertEquals(EXPECTED_STYLISH_NESTED, resultNested);
-
-        final String resultNestedOpposite = Differ.generate(nestedFile2, nestedFile1, STYLISH.name());
-        assertEquals(EXPECTED_STYLISH_NESTED_OPPOSITE, resultNestedOpposite);
-    }
-
-    @Test
-    void generatePlain() throws IOException {
-        final String result = Differ.generate(file1, file2, PLAIN.name());
-        assertEquals(EXPECTED_PLAIN, result);
-
-        final String resultOpposite = Differ.generate(file2, file1, PLAIN.name());
-        assertEquals(EXPECTED_PLAIN_OPPOSITE, resultOpposite);
-
-        final String resultNested = Differ.generate(nestedFile1, nestedFile2, PLAIN.name());
-        assertEquals(EXPECTED_PLAIN_NESTED, resultNested);
-
-        final String resultNestedOpposite = Differ.generate(nestedFile2, nestedFile1, PLAIN.name());
-        assertEquals(EXPECTED_PLAIN_NESTED_OPPOSITE, resultNestedOpposite);
+                new Object[] {JSON.name(), "Simple", "file1.json", "file2.json"},
+                new Object[] {JSON.name(), "Opposite", "file2.json", "file1.json"},
+                new Object[] {JSON.name(), "Nested", "file2.yml", "file3.yml"},
+                new Object[] {JSON.name(), "Nested Opposite", "file3.yml", "file2.yml"}
+        );
     }
 }

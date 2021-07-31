@@ -13,16 +13,16 @@ public final class Differ {
         return getDiff(file1, file2).collect(Formatter.format(formatName));
     }
 
-    private static Stream<Changes> getDiff(final File file1, final File file2) throws IOException {
+    private static Stream<Record> getDiff(final File file1, final File file2) throws IOException {
         final var parser = new Parser();
         final var firstFileContent = parser.parse(file1);
         final var secondFileContent = parser.parse(file2);
 
         return concat(firstFileContent.keySet().stream(), secondFileContent.keySet().stream())
                 .distinct()
-                .map(recordName -> new Changes(recordName,
-                                               firstFileContent.get(recordName),
-                                               secondFileContent.get(recordName))
-                ).sorted(comparing(Changes::getRecordName));
+                .map(recordName -> new Record(recordName,
+                                              firstFileContent.get(recordName),
+                                              secondFileContent.get(recordName))
+                ).sorted(comparing(Record::getName));
     }
 }

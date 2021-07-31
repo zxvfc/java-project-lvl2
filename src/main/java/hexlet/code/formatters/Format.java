@@ -1,20 +1,21 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Changes;
+import hexlet.code.Record;
 import java.util.StringJoiner;
 import java.util.stream.Collector;
 
 public enum Format {
     PLAIN(Plain.COLLECTOR),
-    STYLISH(Stylish.COLLECTOR);
+    STYLISH(Stylish.COLLECTOR),
+    JSON(Json.COLLECTOR);
 
-    Format(final Collector<Changes, StringJoiner, String> passedCollector) {
+    Format(final Collector<Record, StringJoiner, String> passedCollector) {
         this.collector = passedCollector;
     }
 
-    private final Collector<Changes, StringJoiner, String> collector;
+    private final Collector<Record, StringJoiner, String> collector;
 
-    public Collector<Changes, StringJoiner, String> getCollector() {
+    public Collector<Record, StringJoiner, String> getCollector() {
         return collector;
     }
 }

@@ -1,6 +1,6 @@
 package hexlet.code.formatters;
 
-import hexlet.code.Changes;
+import hexlet.code.Record;
 import java.util.StringJoiner;
 import java.util.stream.Collector;
 
@@ -15,31 +15,31 @@ public final class Stylish {
     private static final String NAME_VALUE_DELIMITER =      ": ";
     private static final String NO_CHANGES_PREFIX =         "  ";
 
-    public static final Collector<Changes, StringJoiner, String> COLLECTOR = Collector.of(
+    public static final Collector<Record, StringJoiner, String> COLLECTOR = Collector.of(
             () -> new StringJoiner(DELIMITER, PREFIX, SUFFIX),
             Stylish::apply,
             StringJoiner::merge,
             StringJoiner::toString
     );
 
-    private static void apply(StringJoiner joiner, Changes changes) {
-        if (changes.isUpdated()) {
-            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(changes))
-                  .add(ADDED_CHANGED_PREFIX + getNowWithName(changes));
-        } else if (changes.isRemoved()) {
-            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(changes));
-        } else if (changes.isAdded()) {
-            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(changes));
+    private static void apply(StringJoiner joiner, Record record) {
+        if (record.isUpdated()) {
+            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record))
+                  .add(ADDED_CHANGED_PREFIX + getNowWithName(record));
+        } else if (record.isRemoved()) {
+            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record));
+        } else if (record.isAdded()) {
+            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record));
         } else {
-            joiner.add(NO_CHANGES_PREFIX + getWasWithName(changes));
+            joiner.add(NO_CHANGES_PREFIX + getWasWithName(record));
         }
     }
 
-    private static String getWasWithName(final Changes changes) {
-        return changes.getRecordName() + NAME_VALUE_DELIMITER + changes.getRecordWas().toString();
+    private static String getWasWithName(final Record record) {
+        return record.getName() + NAME_VALUE_DELIMITER + record.getValueWas().toString();
     }
 
-    private static String getNowWithName(final Changes changes) {
-        return changes.getRecordName() + NAME_VALUE_DELIMITER + changes.getRecordNow().toString();
+    private static String getNowWithName(final Record record) {
+        return record.getName() + NAME_VALUE_DELIMITER + record.getValueNow().toString();
     }
 }

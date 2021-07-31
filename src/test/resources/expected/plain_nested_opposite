@@ -1,0 +1,13 @@
+Property chars2 was updated. From [d, e, f] to false
+Property checked was updated. From false to true
+Property default was removed
+Property id was added with value: 45
+Property key1 was added with value: value1
+Property key2 was removed
+Property numbers2 was updated. From [2, 3, 4, 5] to [22, 33, 44, 55]
+Property numbers3 was added with value: [3, 4, 5]
+Property numbers4 was removed
+Property obj1 was removed
+Property setting1 was updated. From Some value to Another value
+Property setting2 was updated. From 200 to 300
+Property setting3 was updated. From true to none
