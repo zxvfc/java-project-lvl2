@@ -1,7 +1,7 @@
 Property chars2 was updated. From false to [d, e, f]
 Property checked was updated. From true to false
-Property default was added with value: [value1, value2]
-Property id was removed
+Property default was updated. From [value1, value2] to null
+Property id was updated. From null to 45
 Property key1 was removed
 Property key2 was added with value: value2
 Property numbers2 was updated. From [22, 33, 44, 55] to [2, 3, 4, 5]

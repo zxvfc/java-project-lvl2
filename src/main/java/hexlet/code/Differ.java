@@ -33,7 +33,10 @@ public final class Differ {
                 .distinct()
                 .map(recordName -> new Record(recordName,
                                               firstFileContent.get(recordName),
-                                              secondFileContent.get(recordName))
+                                              secondFileContent.get(recordName),
+                                              !firstFileContent.containsKey(recordName),
+                                              !secondFileContent.containsKey(recordName)
+                                              )
                 ).sorted(comparing(Record::getName));
     }
 }

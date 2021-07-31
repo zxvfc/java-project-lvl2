@@ -36,10 +36,10 @@ public final class Stylish {
     }
 
     private static String getWasWithName(final Record record) {
-        return record.getName() + NAME_VALUE_DELIMITER + record.getValueWas().toString();
+        return record.getName() + NAME_VALUE_DELIMITER + record.getValueWas();
     }
 
     private static String getNowWithName(final Record record) {
-        return record.getName() + NAME_VALUE_DELIMITER + record.getValueNow().toString();
+        return record.getName() + NAME_VALUE_DELIMITER + record.getValueNow();
     }
 }
