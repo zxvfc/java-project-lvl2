@@ -6,9 +6,9 @@ import java.util.stream.Collector;
 
 public final class Stylish {
 
-    private static final String PREFIX =    "{\n    ";
+    private static final String PREFIX =    "{\n  ";
     private static final String SUFFIX =    "\n}";
-    private static final String DELIMITER = "\n    ";
+    private static final String DELIMITER = "\n  ";
 
     private static final String DELETED_CHANGED_PREFIX =    "- ";
     private static final String ADDED_CHANGED_PREFIX =      "+ ";
