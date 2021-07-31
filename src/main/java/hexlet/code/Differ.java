@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.formatters.Format;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
@@ -8,6 +9,10 @@ import static java.util.Comparator.comparing;
 import static java.util.stream.Stream.concat;
 
 public final class Differ {
+
+    public static String generate(final String filePath1, final String filePath2) throws IOException {
+        return generate(filePath1, filePath2, Format.STYLISH.name()).toLowerCase();
+    }
 
     public static String generate(final String filePath1,
                                   final String filePath2,
