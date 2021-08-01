@@ -15,4 +15,10 @@ jobs:
         with:
           java-version: '15'
       - name: Build with Gradle
-        run: make build
+        with:
+          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_KEY }}
+        - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - run: chmod +x ./cc-test-reporter
+        - run: ./cc-test-reporter before-build
+        - run: make build
+        - run: ./cc-test-reporter after-build --exit-code
