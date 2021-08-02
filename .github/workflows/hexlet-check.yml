@@ -20,10 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up openJDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: '15'
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
