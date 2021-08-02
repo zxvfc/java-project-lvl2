@@ -34,7 +34,7 @@ public final class Stylish {
         } else if (record.isRemoved()) {
             joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record));
         } else if (record.isAdded()) {
-            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record));
+            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record).toUpperCase());
         } else {
             joiner.add(NO_CHANGES_PREFIX + getWasWithName(record));
         }
