@@ -11,7 +11,7 @@ import static java.util.stream.Stream.concat;
 public final class Differ {
 
     public static String generate(final String filePath1, final String filePath2) throws IOException {
-        return generate(filePath1, filePath2, Format.STYLISH.name()).toLowerCase();
+        return generate(filePath1, filePath2, Format.STYLISH.name());
     }
 
     public static String generate(final String filePath1,

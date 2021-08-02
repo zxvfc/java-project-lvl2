@@ -18,16 +18,8 @@ public final class Stylish {
     public static final Collector<Record, StringJoiner, String> COLLECTOR = Collector.of(
             () -> new StringJoiner(DELIMITER, PREFIX, SUFFIX),
             Stylish::apply,
-            (stringJoiner, other) -> {
-                System.out.println("s1: " + stringJoiner.toString());
-                System.out.println("s2: " + other.toString());
-                return stringJoiner.merge(other);
-            },
-            stringJoiner -> {
-                String str = stringJoiner.toString();
-                System.out.println("String: " + str);
-                return str;
-            }
+            StringJoiner::merge,
+            StringJoiner::toString
     );
 
     private static void apply(final StringJoiner joiner, final Record record) {
