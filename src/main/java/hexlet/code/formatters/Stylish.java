@@ -41,10 +41,14 @@ public final class Stylish {
     }
 
     private static String getWasWithName(final Record record) {
-        return record.getName() + NAME_VALUE_DELIMITER + record.getValueWas();
+        String was = record.getName() + NAME_VALUE_DELIMITER + record.getValueWas();
+        System.out.println(was);
+        return was;
     }
 
     private static String getNowWithName(final Record record) {
-        return record.getName() + NAME_VALUE_DELIMITER + record.getValueNow();
+        String now = record.getName() + NAME_VALUE_DELIMITER + record.getValueNow();
+        System.out.println(now);
+        return now;
     }
 }
