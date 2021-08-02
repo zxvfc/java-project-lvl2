@@ -1,7 +1,7 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Record;
-import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collector;
@@ -44,7 +44,7 @@ public final class Plain {
     }
 
     private static Object handleComplexValues(final Object value) {
-        return value instanceof Map || value instanceof Array
+        return value instanceof Object[] || value instanceof Collection || value instanceof Map
                 ? "[complex value]"
                 : value;
     }

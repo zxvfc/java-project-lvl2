@@ -1,11 +1,11 @@
-Property chars2 was updated. From false to [d, e, f]
+Property chars2 was updated. From false to [complex value]
 Property checked was updated. From true to false
-Property default was updated. From [value1, value2] to null
+Property default was updated. From [complex value] to null
 Property id was updated. From null to 45
 Property key1 was added with value: value1
 Property key2 was removed
-Property numbers2 was updated. From [22, 33, 44, 55] to [2, 3, 4, 5]
-Property numbers3 was added with value: [3, 4, 5]
+Property numbers2 was updated. From [complex value] to [complex value]
+Property numbers3 was added with value: [complex value]
 Property numbers4 was removed
 Property obj1 was removed
 Property setting1 was updated. From Another value to Some value
