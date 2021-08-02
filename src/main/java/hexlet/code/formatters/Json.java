@@ -20,7 +20,7 @@ public final class Json {
             StringJoiner::toString
     );
 
-    private static void apply(StringJoiner joiner, Record record) {
+    private static void apply(final StringJoiner joiner, final Record record) {
         try {
             joiner.add(MAPPER.writeValueAsString(record));
         } catch (JsonProcessingException e) {
