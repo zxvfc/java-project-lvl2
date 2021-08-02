@@ -22,7 +22,12 @@ public final class Stylish {
             StringJoiner::toString
     );
 
-    private static void apply(StringJoiner joiner, Record record) {
+    private static void apply(final StringJoiner joiner, final Record record) {
+        System.out.println("Current record:"
+                                   + " " + record.getName()
+                                   + " " + record.getValueWas()
+                                   + " " + record.getValueNow()
+        );
         if (record.isUpdated()) {
             joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record))
                   .add(ADDED_CHANGED_PREFIX + getNowWithName(record));
