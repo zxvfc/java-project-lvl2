@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
@@ -15,6 +17,8 @@ public final class Parser {
     private static final String YAML = ".yaml";
 
     public Map<String, Object> parse(final File file) throws IOException {
+        System.out.println("File: " + file.getAbsolutePath());
+        new BufferedReader(new FileReader(file)).lines().forEach(System.out::println);
         final var extension = getExtensionOf(file);
         return getMapperFor(extension).readValue(file, new TypeReference<>() { });
     }
