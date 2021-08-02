@@ -25,9 +25,11 @@ public final class Differ {
 
         final var file1 = Paths.get(filePath1).toFile();
         final var firstFileContent = parser.parse(file1);
+        System.out.println("File1 as map:" + firstFileContent);
 
         final var file2 = Paths.get(filePath2).toFile();
         final var secondFileContent = parser.parse(file2);
+        System.out.println("File2 as map:" + secondFileContent);
 
         return concat(firstFileContent.keySet().stream(), secondFileContent.keySet().stream())
                 .distinct()
