@@ -18,8 +18,16 @@ public final class Stylish {
     public static final Collector<Record, StringJoiner, String> COLLECTOR = Collector.of(
             () -> new StringJoiner(DELIMITER, PREFIX, SUFFIX),
             Stylish::apply,
-            StringJoiner::merge,
-            stringJoiner -> stringJoiner.toString().toUpperCase()
+            (stringJoiner, other) -> {
+                System.out.println("s1: " + stringJoiner.toString());
+                System.out.println("s2: " + other.toString());
+                return stringJoiner.merge(other);
+            },
+            stringJoiner -> {
+                String str = stringJoiner.toString();
+                System.out.println("String: " + str);
+                return str;
+            }
     );
 
     private static void apply(final StringJoiner joiner, final Record record) {
@@ -29,7 +37,7 @@ public final class Stylish {
         } else if (record.isRemoved()) {
             joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record));
         } else if (record.isAdded()) {
-            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record).toUpperCase());
+            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record));
         } else {
             joiner.add(NO_CHANGES_PREFIX + getWasWithName(record));
         }
