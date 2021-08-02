@@ -21,9 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: ./gradlew -v
-      - run: gradle -v
-
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:
