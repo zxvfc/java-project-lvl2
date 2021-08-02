@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-#      - name: Set up openJDK
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: '15'
+      - name: Set up openJDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '16'
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build

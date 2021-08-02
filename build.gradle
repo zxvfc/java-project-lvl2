@@ -34,7 +34,7 @@ test {
 }
 
 compileJava {
-  options.release = 11
+  options.release = 16
 }
 
 application {
