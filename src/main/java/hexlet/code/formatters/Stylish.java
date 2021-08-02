@@ -19,15 +19,10 @@ public final class Stylish {
             () -> new StringJoiner(DELIMITER, PREFIX, SUFFIX),
             Stylish::apply,
             StringJoiner::merge,
-            StringJoiner::toString
+            stringJoiner -> stringJoiner.toString().toUpperCase()
     );
 
     private static void apply(final StringJoiner joiner, final Record record) {
-        System.out.println("Current record:"
-                                   + " " + record.getName()
-                                   + " " + record.getValueWas()
-                                   + " " + record.getValueNow()
-        );
         if (record.isUpdated()) {
             joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record))
                   .add(ADDED_CHANGED_PREFIX + getNowWithName(record));
@@ -41,14 +36,10 @@ public final class Stylish {
     }
 
     private static String getWasWithName(final Record record) {
-        String was = record.getName() + NAME_VALUE_DELIMITER + record.getValueWas();
-        System.out.println(was);
-        return was;
+        return record.getName() + NAME_VALUE_DELIMITER + record.getValueWas();
     }
 
     private static String getNowWithName(final Record record) {
-        String now = record.getName() + NAME_VALUE_DELIMITER + record.getValueNow();
-        System.out.println(now);
-        return now;
+        return record.getName() + NAME_VALUE_DELIMITER + record.getValueNow();
     }
 }
