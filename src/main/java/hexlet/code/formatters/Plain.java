@@ -21,18 +21,22 @@ public final class Plain {
 
     private static void apply(final StringJoiner joiner, final Record record) {
         if (record.isRemoved()) {
-            joiner.add(REMOVED_TEMPLATE.formatted(record.getName()));
+            joiner.add(REMOVED_TEMPLATE.formatted(getNameWithQuotes(record)));
         }
         if (record.isAdded()) {
-            joiner.add(ADDED_TEMPLATE.formatted(record.getName(), getPreparedNow(record)));
+            joiner.add(ADDED_TEMPLATE.formatted(getNameWithQuotes(record), getPreparedNow(record)));
         }
         if (record.isUpdated()) {
             joiner.add(UPDATED_TEMPLATE.formatted(
-                    record.getName(),
+                    getNameWithQuotes(record),
                     getPreparedWas(record),
                     getPreparedNow(record))
             );
         }
+    }
+
+    private static String getNameWithQuotes(final Record record) {
+        return "'" + record.getName() + "'";
     }
 
     private static Object getPreparedWas(final Record record) {
@@ -46,6 +50,8 @@ public final class Plain {
     private static Object handleComplexValues(final Object value) {
         return value instanceof Object[] || value instanceof Collection || value instanceof Map
                 ? "[complex value]"
+                : value instanceof String
+                ? "'" + value + "'"
                 : value;
     }
 }
