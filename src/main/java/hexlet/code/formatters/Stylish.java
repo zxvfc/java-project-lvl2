@@ -23,17 +23,16 @@ public final class Stylish {
     );
 
     private static void apply(StringJoiner joiner, Record record) {
-        joiner.add("test");
-//        if (record.isUpdated()) {
-//            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record))
-//                  .add(ADDED_CHANGED_PREFIX + getNowWithName(record));
-//        } else if (record.isRemoved()) {
-//            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record));
-//        } else if (record.isAdded()) {
-//            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record));
-//        } else {
-//            joiner.add(NO_CHANGES_PREFIX + getWasWithName(record));
-//        }
+        if (record.isUpdated()) {
+            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record))
+                  .add(ADDED_CHANGED_PREFIX + getNowWithName(record));
+        } else if (record.isRemoved()) {
+            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record));
+        } else if (record.isAdded()) {
+            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record));
+        } else {
+            joiner.add(NO_CHANGES_PREFIX + getWasWithName(record));
+        }
     }
 
     private static String getWasWithName(final Record record) {
