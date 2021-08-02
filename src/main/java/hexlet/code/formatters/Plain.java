@@ -1,6 +1,8 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Record;
+import java.lang.reflect.Array;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collector;
 
@@ -22,14 +24,28 @@ public final class Plain {
             joiner.add(REMOVED_TEMPLATE.formatted(record.getName()));
         }
         if (record.isAdded()) {
-            joiner.add(ADDED_TEMPLATE.formatted(record.getName(), record.getValueNow()));
+            joiner.add(ADDED_TEMPLATE.formatted(record.getName(), getPreparedNow(record)));
         }
         if (record.isUpdated()) {
             joiner.add(UPDATED_TEMPLATE.formatted(
                     record.getName(),
-                    record.getValueNow(),
-                    record.getValueWas())
+                    getPreparedWas(record),
+                    getPreparedNow(record))
             );
         }
+    }
+
+    private static Object getPreparedWas(final Record record) {
+        return handleComplexValues(record.getValueWas());
+    }
+
+    private static Object getPreparedNow(final Record record) {
+        return handleComplexValues(record.getValueNow());
+    }
+
+    private static Object handleComplexValues(final Object value) {
+        return value instanceof Map || value instanceof Array
+                ? "[complex value]"
+                : value;
     }
 }
