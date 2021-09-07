@@ -8,7 +8,7 @@
 plugins {
   id 'application'
   id 'checkstyle'
-  id 'com.github.ben-manes.versions' version '0.38.0'
+  id 'com.github.ben-manes.versions' version '0.39.0'
   id 'jacoco'
 }
 
@@ -21,8 +21,8 @@ repositories {
 
 dependencies {
   implementation 'info.picocli:picocli:4.6.1'
-  implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
-  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.4'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.5'
 
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
   testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0-M1'
@@ -49,5 +49,5 @@ jacocoTestReport {
 }
 
 checkstyle {
-  toolVersion '8.41'
+  toolVersion '9.0'
 }
