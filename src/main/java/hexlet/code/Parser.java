@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -14,21 +13,15 @@ public final class Parser {
     private static final String YML = ".yml";
     private static final String YAML = ".yaml";
 
-    public Map<String, Object> parse(final File file) throws IOException {
-        final var extension = getExtensionOf(file);
-        return getMapperFor(extension).readValue(file, new TypeReference<>() { });
+    public static Map<String, Object> parse(final String content, final String type) throws IOException {
+        return getMapperFor(type).readValue(content, new TypeReference<>() { });
     }
 
-    private static String getExtensionOf(final File file) {
-        final var fileName = file.getName();
-        return fileName.substring(fileName.lastIndexOf('.'));
-    }
-
-    private ObjectMapper getMapperFor(final String extension) {
-        final var factory = switch (extension.toLowerCase()) {
+    private static ObjectMapper getMapperFor(final String type) {
+        final var factory = switch (type.toLowerCase()) {
             case JSON -> new MappingJsonFactory();
             case YML, YAML -> new YAMLFactory();
-            default -> throw new IllegalStateException("Unexpected value: " + extension);
+            default -> throw new IllegalStateException("Unexpected value: " + type);
         };
         return new ObjectMapper(factory);
     }

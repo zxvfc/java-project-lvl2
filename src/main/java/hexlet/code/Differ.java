@@ -2,7 +2,9 @@ package hexlet.code;
 
 import hexlet.code.formatters.Format;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
@@ -21,13 +23,9 @@ public final class Differ {
     }
 
     private static Stream<Record> getDiff(final String filePath1, final String filePath2) throws IOException {
-        final var parser = new Parser();
 
-        final var file1 = Paths.get(filePath1).toFile();
-        final var firstFileContent = parser.parse(file1);
-
-        final var file2 = Paths.get(filePath2).toFile();
-        final var secondFileContent = parser.parse(file2);
+        final var firstFileContent = readFileToMap(filePath1);
+        final var secondFileContent = readFileToMap(filePath2);
 
         return concat(firstFileContent.keySet().stream(), secondFileContent.keySet().stream())
                 .distinct()
@@ -38,5 +36,11 @@ public final class Differ {
                                               !secondFileContent.containsKey(recordName)
                                               )
                 ).sorted(comparing(Record::getName));
+    }
+
+    private static Map<String, Object> readFileToMap(final String filePath) throws IOException {
+        var extension = filePath.substring(filePath.lastIndexOf('.'));
+        var content = Files.readString(Paths.get(filePath));
+        return Parser.parse(content, extension);
     }
 }
