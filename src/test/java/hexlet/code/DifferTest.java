@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -17,17 +18,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DifferTest {
 
+    @Test
+    public final void defaultTest() throws IOException {
+        final var file1 = getFileByName("file1.json");
+        final var file2 = getFileByName("file2.json");
+
+        final var expected = getExpectedFor(STYLISH.name(), "simple");
+
+        final var result = Differ.generate(file1.getPath(), file2.getPath());
+
+        assertEquals(expected, result);
+    }
+
     @MethodSource("data")
     @ParameterizedTest(name = "{0} {1}")
     public final void test(final String formatName,
                      final String testName,
                      final String fileName1,
                      final String fileName2) throws IOException {
-        final File file1 = getFileByName(fileName1);
-        final File file2 = getFileByName(fileName2);
+        final var file1 = getFileByName(fileName1);
+        final var file2 = getFileByName(fileName2);
 
-        final String expected = getExpectedFor(formatName, testName);
-        final String result = Differ.generate(file1.getPath(), file2.getPath(), formatName);
+        final var expected = getExpectedFor(formatName, testName);
+        final var result = Differ.generate(file1.getPath(), file2.getPath(), formatName);
         assertEquals(expected, result);
     }
 
