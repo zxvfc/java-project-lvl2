@@ -21,6 +21,7 @@ class ParserTest {
         assertEquals(EXPECTED_SIZE, parsedResult.size());
     }
 
+
     @Test
     public void parseYaml() throws IOException {
         final var parsedResult = Parser.parse(readFile(YAML_FILE_NAME), ".yml");
