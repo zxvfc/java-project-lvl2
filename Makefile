@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := build-run
+.PHONY: build
 
 setup:
 	./gradlew wrapper --gradle-version 6.8.3
@@ -6,8 +6,8 @@ setup:
 clean:
 	./gradlew clean
 
-build:  clean
-	./gradlew build
+build: 
+	./gradlew clean build
 
 install: clean
 	./gradlew install
