@@ -13,6 +13,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '16'
+          distribution: 'adopt'
       - name: Build with Gradle
         run: make build
       - name: Test & publish code coverage
