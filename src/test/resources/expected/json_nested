@@ -1,15 +1,15 @@
-{"name":"chars1","valueWas":["a","b","c"],"valueNow":["a","b","c"]}
-{"name":"chars2","valueWas":["d","e","f"],"valueNow":false}
-{"name":"checked","valueWas":false,"valueNow":true}
-{"name":"default","valueWas":null,"valueNow":["value1","value2"]}
-{"name":"id","valueWas":45,"valueNow":null}
-{"name":"key1","valueWas":"value1","valueNow":null}
-{"name":"key2","valueWas":null,"valueNow":"value2"}
-{"name":"numbers1","valueWas":[1,2,3,4],"valueNow":[1,2,3,4]}
-{"name":"numbers2","valueWas":[2,3,4,5],"valueNow":[22,33,44,55]}
-{"name":"numbers3","valueWas":[3,4,5],"valueNow":null}
-{"name":"numbers4","valueWas":null,"valueNow":[4,5,6]}
-{"name":"obj1","valueWas":null,"valueNow":{"nestedKey":"value","isNested":true}}
-{"name":"setting1","valueWas":"Some value","valueNow":"Another value"}
-{"name":"setting2","valueWas":200,"valueNow":300}
-{"name":"setting3","valueWas":true,"valueNow":"none"}
+{"name":"chars1","valueWas":["a","b","c"],"valueNow":["a","b","c"],"state":"UNCHANGED"}
+{"name":"chars2","valueWas":["d","e","f"],"valueNow":false,"state":"CHANGED"}
+{"name":"checked","valueWas":false,"valueNow":true,"state":"CHANGED"}
+{"name":"default","valueWas":null,"valueNow":["value1","value2"],"state":"CHANGED"}
+{"name":"id","valueWas":45,"valueNow":null,"state":"CHANGED"}
+{"name":"key1","valueWas":"value1","valueNow":null,"state":"REMOVED"}
+{"name":"key2","valueWas":null,"valueNow":"value2","state":"ADDED"}
+{"name":"numbers1","valueWas":[1,2,3,4],"valueNow":[1,2,3,4],"state":"UNCHANGED"}
+{"name":"numbers2","valueWas":[2,3,4,5],"valueNow":[22,33,44,55],"state":"CHANGED"}
+{"name":"numbers3","valueWas":[3,4,5],"valueNow":null,"state":"REMOVED"}
+{"name":"numbers4","valueWas":null,"valueNow":[4,5,6],"state":"ADDED"}
+{"name":"obj1","valueWas":null,"valueNow":{"nestedKey":"value","isNested":true},"state":"ADDED"}
+{"name":"setting1","valueWas":"Some value","valueNow":"Another value","state":"CHANGED"}
+{"name":"setting2","valueWas":200,"valueNow":300,"state":"CHANGED"}
+{"name":"setting3","valueWas":true,"valueNow":"none","state":"CHANGED"}

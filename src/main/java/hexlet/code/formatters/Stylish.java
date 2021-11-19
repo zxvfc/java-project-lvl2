@@ -10,10 +10,10 @@ public final class Stylish {
     private static final String SUFFIX =    "\n}";
     private static final String DELIMITER = "\n  ";
 
-    private static final String DELETED_CHANGED_PREFIX =    "- ";
-    private static final String ADDED_CHANGED_PREFIX =      "+ ";
-    private static final String NAME_VALUE_DELIMITER =      ": ";
-    private static final String NO_CHANGES_PREFIX =         "  ";
+    private static final String ADDED_TEMPLATE =       "+ %s: %s";
+    private static final String DELETED_TEMPLATE =     "- %s: %s";
+    private static final String UNCHANGED_TEMPLATE =   "  %s: %s";
+    private static final String CHANGED_T = DELETED_TEMPLATE + DELIMITER + ADDED_TEMPLATE;
 
     public static final Collector<Record, StringJoiner, String> COLLECTOR = Collector.of(
             () -> new StringJoiner(DELIMITER, PREFIX, SUFFIX),
@@ -23,23 +23,14 @@ public final class Stylish {
     );
 
     private static void apply(final StringJoiner joiner, final Record record) {
-        if (record.isUpdated()) {
-            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record))
-                  .add(ADDED_CHANGED_PREFIX + getNowWithName(record));
-        } else if (record.isRemoved()) {
-            joiner.add(DELETED_CHANGED_PREFIX + getWasWithName(record));
-        } else if (record.isAdded()) {
-            joiner.add(ADDED_CHANGED_PREFIX + getNowWithName(record));
-        } else {
-            joiner.add(NO_CHANGES_PREFIX + getWasWithName(record));
-        }
-    }
 
-    private static String getWasWithName(final Record record) {
-        return record.getName() + NAME_VALUE_DELIMITER + record.getValueWas();
-    }
+        final var fieldDiff = switch (record.state()) {
+            case ADDED -> ADDED_TEMPLATE.formatted(record.name(), record.valueNow());
+            case REMOVED -> DELETED_TEMPLATE.formatted(record.name(), record.valueWas());
+            case UNCHANGED -> UNCHANGED_TEMPLATE.formatted(record.name(), record.valueNow());
+            case CHANGED -> CHANGED_T.formatted(record.name(), record.valueWas(), record.name(), record.valueNow());
+        };
 
-    private static String getNowWithName(final Record record) {
-        return record.getName() + NAME_VALUE_DELIMITER + record.getValueNow();
+        joiner.add(fieldDiff);
     }
 }

@@ -20,12 +20,12 @@ repositories {
 }
 
 dependencies {
-  implementation 'info.picocli:picocli:4.6.1'
-  implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
-  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.5'
+  implementation 'info.picocli:picocli:4.6.2'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.0'
 
-  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.0-M1'
-  testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.0-M1'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.1'
 }
 
 test {
@@ -34,7 +34,7 @@ test {
 }
 
 compileJava {
-  options.release = 15
+  options.release = 16
 }
 
 application {

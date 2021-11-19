@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.stream.Collector;
 
+import static hexlet.code.State.UNCHANGED;
+
 public final class Plain {
 
     private static final String REMOVED_TEMPLATE = "Property %s was removed";
@@ -20,31 +22,33 @@ public final class Plain {
         );
 
     private static void apply(final StringJoiner joiner, final Record record) {
-        if (record.isRemoved()) {
-            joiner.add(REMOVED_TEMPLATE.formatted(getNameWithQuotes(record)));
+        if (record.state() == UNCHANGED) {
+            return;
         }
-        if (record.isAdded()) {
-            joiner.add(ADDED_TEMPLATE.formatted(getNameWithQuotes(record), getPreparedNow(record)));
-        }
-        if (record.isUpdated()) {
-            joiner.add(UPDATED_TEMPLATE.formatted(
+
+        final var fieldDiff = switch (record.state()) {
+            case REMOVED -> REMOVED_TEMPLATE.formatted(getNameWithQuotes(record));
+            case ADDED -> ADDED_TEMPLATE.formatted(getNameWithQuotes(record), getPreparedNow(record));
+            case CHANGED -> UPDATED_TEMPLATE.formatted(
                     getNameWithQuotes(record),
                     getPreparedWas(record),
-                    getPreparedNow(record))
-            );
-        }
+                    getPreparedNow(record));
+            default -> "";
+        };
+
+        joiner.add(fieldDiff);
     }
 
     private static String getNameWithQuotes(final Record record) {
-        return "'" + record.getName() + "'";
+        return "'" + record.name() + "'";
     }
 
     private static Object getPreparedWas(final Record record) {
-        return handleComplexValues(record.getValueWas());
+        return handleComplexValues(record.valueWas());
     }
 
     private static Object getPreparedNow(final Record record) {
-        return handleComplexValues(record.getValueNow());
+        return handleComplexValues(record.valueNow());
     }
 
     private static Object handleComplexValues(final Object value) {

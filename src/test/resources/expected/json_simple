@@ -1,5 +1,5 @@
-{"name":"follow","valueWas":false,"valueNow":null}
-{"name":"host","valueWas":"hexlet.io","valueNow":"hexlet.io"}
-{"name":"proxy","valueWas":"123.234.53.22","valueNow":null}
-{"name":"timeout","valueWas":50,"valueNow":20}
-{"name":"verbose","valueWas":null,"valueNow":true}
+{"name":"follow","valueWas":false,"valueNow":null,"state":"REMOVED"}
+{"name":"host","valueWas":"hexlet.io","valueNow":"hexlet.io","state":"UNCHANGED"}
+{"name":"proxy","valueWas":"123.234.53.22","valueNow":null,"state":"REMOVED"}
+{"name":"timeout","valueWas":50,"valueNow":20,"state":"CHANGED"}
+{"name":"verbose","valueWas":null,"valueNow":true,"state":"ADDED"}
