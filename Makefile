@@ -6,14 +6,14 @@ setup:
 clean:
 	./gradlew clean
 
-build: 
+build:
 	./gradlew clean build
 
 install: clean
 	./gradlew install
 
 run-dist:
-	./build/install/app/bin/app
+	./build/install/app/bin/app $(ARGS)
 
 run:
 	./gradlew run
